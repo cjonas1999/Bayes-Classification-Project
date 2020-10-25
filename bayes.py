@@ -29,6 +29,16 @@ class Bayes:
 				i += 1
 		
 		train_f.close()
+	
+	def classifyFile(self, infile_name, outfile_name):
+		pass
+
+
+	def calculateAccuracy(self, filename):
+		pass
+
+
+
 
 def main():
 	metafile = input("Enter meta file name:")
