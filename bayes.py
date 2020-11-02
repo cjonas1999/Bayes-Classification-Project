@@ -7,13 +7,12 @@ class Bayes:
 		meta_f = open(meta_filename, "r")
 		i = 0
 		for line in meta_f:
-			n = line.strip().split(':')
+			n = line.strip().split(':')#attribute name is n[0]
 
-			self.attributes.append({})
-			self.attributes[i][n[0]] = set()
+			self.attributes.append(set())
 
 			for val in n[1].split(','):
-				self.attributes[i][n[0]].add(val)
+				self.attributes[i].add(val)
 			
 			i += 1
 		
@@ -24,13 +23,11 @@ class Bayes:
 		i = 0
 		for attr in self.attributes[:-1]:
 			self.counts.append({})
-			for classif in self.attributes[-1].values():
-				for v in classif:
-					self.counts[i][v] = {}
+			for classif in self.attributes[-1]:
+				self.counts[i][classif] = {}
 
-					for c in self.attributes[i].values():
-						for attr in c:
-							self.counts[i][v][attr] = 0
+				for attr in self.attributes[i]:
+					self.counts[i][classif][attr] = 0
 
 			i += 1
 
