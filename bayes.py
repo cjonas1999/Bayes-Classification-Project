@@ -2,6 +2,7 @@ class Bayes:
 	def __init__(self, meta_filename, training_filename):
 		self.attributes = [] #the classifications are the last item in self.attributes
 		self.counts = [] #counts is accessed in this format: self.counts[column][classification][attribute]
+		self.classification_count = {}
 		
 		#Read meta file
 		meta_f = open(meta_filename, "r")
@@ -30,6 +31,9 @@ class Bayes:
 					self.counts[i][classif][attr] = 1
 
 			i += 1
+		
+		for c in self.attributes[-1]:
+			self.classification_count[c] = 1
 
 
 		#read training file into counts
@@ -41,6 +45,8 @@ class Bayes:
 				classification = formatted_line[-1]
 				self.counts[i][classification][val] = self.counts[i][classification][val] + 1
 				i += 1
+			
+			self.classification_count[formatted_line[-1]] = self.classification_count[formatted_line[-1]] + 1
 		
 		train_f.close()
 
@@ -53,6 +59,15 @@ class Bayes:
 
 				for attr in col[classif]:
 					col[classif][attr] = col[classif][attr]/total
+		
+		total = 0
+		for v in self.classification_count.values():
+			total += v
+		
+		for c in self.classification_count:
+			self.classification_count[c] = self.classification_count[c]/total
+		
+		print(self.classification_count)
 
 	
 	def classifyFile(self, infile_name, outfile_name):
