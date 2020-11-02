@@ -27,7 +27,7 @@ class Bayes:
 				self.counts[i][classif] = {}
 
 				for attr in self.attributes[i]:
-					self.counts[i][classif][attr] = 0
+					self.counts[i][classif][attr] = 1
 
 			i += 1
 
@@ -43,7 +43,17 @@ class Bayes:
 				i += 1
 		
 		train_f.close()
-	
+
+		#change counts from raw number to fraction
+		for col in self.counts:
+			for classif in col:
+				total = 0
+				for attr in col[classif]:
+					total += col[classif][attr]
+
+				for attr in col[classif]:
+					col[classif][attr] = col[classif][attr]/total
+
 	
 	def classifyFile(self, infile_name, outfile_name):
 		pass
