@@ -56,8 +56,30 @@ class Bayes:
 
 
 def main():
+	running = True
+
 	metafile = input("Enter meta file name:")
 	trainingfile = input("Enter training file name:")
 	b = Bayes(metafile, trainingfile)
+
+	while running:
+		choice = input("\n\n1 to train.\n2 to classify a file.\n3 to calculate accuracy.\n4 to exit\nEnter choice: ")
+
+		if choice == "1":
+			metafile = input("Enter meta file name:")
+			trainingfile = input("Enter training file name:")
+			b = Bayes(metafile, trainingfile)
+		
+		elif choice == "2":
+			infile = input("Enter test file name:")
+			outfile = input("Enter output file name:")
+			b.classifyFile(infile, outfile)
+		
+		elif choice == "3":
+			infile = input("Enter test file name:")
+			b.calculateAccuracy(infile)
+		
+		elif choice == "4":
+			running = False
 
 main()
