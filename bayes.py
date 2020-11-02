@@ -107,7 +107,22 @@ class Bayes:
                     
                     
 	def calculateAccuracy(self, filename):
-		pass
+		correct = 0
+		incorrect = 0
+
+		infile = open(filename, "r")
+		
+		for line in infile:
+			splitline = line.strip().split(',')
+			classification = self.bestprobability(splitline)
+
+			if classification == splitline[-1]:
+				correct += 1
+			else:
+				incorrect += 1
+		
+		return correct/(correct + incorrect)
+
 
 
 
@@ -133,7 +148,8 @@ def main():
 		
 		elif choice == "3":
 			infile = input("Enter test file name:")
-			b.calculateAccuracy(infile)
+			accuracy = b.calculateAccuracy(infile)
+			print(f"{infile} was {accuracy*100}% accurate")
 		
 		elif choice == "4":
 			running = False
