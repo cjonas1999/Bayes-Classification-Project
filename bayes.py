@@ -67,16 +67,47 @@ class Bayes:
 		for c in self.classification_count:
 			self.classification_count[c] = self.classification_count[c]/total
 		
-		print(self.classification_count)
-
-	
+		#print(self.classification_count)
+        
+    
 	def classifyFile(self, infile_name, outfile_name):
-		pass
+		inf = open(infile_name, "r")
+		outf = open(outfile_name, "w+")
+		for line in inf:
+			indword = line.strip().split(',')
+			classification = self.bestprobability(indword)
 
-
+			for word in indword:
+				if(word != indword[-1]):
+					outf.write(word)
+					outf.write(",")
+			outf.write(classification+'\n')
+         
+		inf.close()
+		outf.close()
+    
+    
+    
+    
+	def bestprobability(self, idword):
+		highest = 0
+		cl_ass = ""
+		for x in self.attributes[-1]:
+			c = 0
+			high = 1
+			for word in idword:
+				if(word != idword[-1]):
+					high = high * self.counts[c][x][word]
+					c=c+1
+			high = high * self.classification_count[x]
+			if(highest<high):
+				cl_ass = x
+				highest = high
+		return cl_ass
+                    
+                    
 	def calculateAccuracy(self, filename):
 		pass
-
 
 
 
