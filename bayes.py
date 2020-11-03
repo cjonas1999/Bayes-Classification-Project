@@ -78,7 +78,7 @@ class Bayes:
 			classification = self.bestprobability(indword)
 
 			for word in indword:
-				if(word != indword[-1]):
+				if(word not in self.attributes[-1]):
 					outf.write(word)
 					outf.write(",")
 			outf.write(classification+'\n')
@@ -96,7 +96,7 @@ class Bayes:
 			c = 0
 			high = 1
 			for word in idword:
-				if(word != idword[-1]):
+				if(word not in self.attributes[-1]):
 					high = high * self.counts[c][x][word]
 					c=c+1
 			high = high * self.classification_count[x]
